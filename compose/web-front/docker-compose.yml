@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  web-front:
+    image: node:20
+    working_dir: /app
+    ports:
+      - "10000:8080"
+    volumes:
+      - ../../src/web-front:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0 --port 8080"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external: true
+    name: llybapp-net
