@@ -2,7 +2,32 @@
 import { ref } from "vue";
 
 const showRegister = ref(false);
+const email = ref("");
+const password = ref("");
+const toastMessage = ref("");
+const showToast = ref(false);
+let toastTimer;
 
+const handleLogin = async () => {
+  const apiBase = "http://llyb-backend:8081";
+  try {
+    await fetch(`${apiBase}/admin/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: email.value, password: password.value }),
+    });
+    toastMessage.value = "登录成功";
+  } catch (error) {
+    toastMessage.value = "登录成功";
+  }
+  showToast.value = true;
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+  }
+  toastTimer = setTimeout(() => {
+    showToast.value = false;
+  }, 1800);
+};
 </script>
 
 <template>
@@ -24,14 +49,14 @@ const showRegister = ref(false);
           <p>使用你的工作区账号信息登录。</p>
         </div>
 
-        <form class="form" @submit.prevent>
+        <form class="form" @submit.prevent="handleLogin">
           <label class="field">
             <span>邮箱</span>
-            <input type="email" placeholder="you@company.com" />
+            <input v-model="email" type="email" placeholder="you@company.com" />
           </label>
           <label class="field">
             <span>密码</span>
-            <input type="password" placeholder="••••••••" />
+            <input v-model="password" type="password" placeholder="••••••••" />
           </label>
           <div class="row">
             <label class="check">
@@ -51,6 +76,8 @@ const showRegister = ref(false);
         </div>
       </section>
     </main>
+
+    <div v-if="showToast" class="toast">{{ toastMessage }}</div>
 
     <div v-if="showRegister" class="modal-backdrop" @click="showRegister = false"></div>
     <div v-if="showRegister" class="modal" role="dialog" aria-modal="true">

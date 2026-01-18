@@ -1,0 +1,37 @@
+services:
+  llyb-backend:
+    container_name: llyb-backend
+    build: ../../src/web-backend
+    working_dir: /app
+    ports:
+      - "11022:22"
+    volumes:
+      - ../../src/web-backend:/app
+    environment:
+      GOPROXY: https://goproxy.cn,direct
+      SSH_USER: dev
+      SSH_PASSWORD: devpass
+      ROOT_PASSWORD: rootpass
+    command: >
+      sh -c "mkdir -p /run/sshd &&
+      echo \"root:$$ROOT_PASSWORD\" | chpasswd &&
+      sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config &&
+      sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config &&
+      if ! id -u \"$$SSH_USER\" >/dev/null 2>&1; then
+        useradd -m -s /bin/bash \"$$SSH_USER\" &&
+        echo \"$$SSH_USER:$$SSH_PASSWORD\" | chpasswd;
+      fi &&
+      cd /app &&
+      if [ -f go.mod ]; then
+        go get trpc.group/trpc-go/trpc-go@latest;
+      fi &&
+      /usr/sbin/sshd -D"
+    stdin_open: true
+    tty: true
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external: true
+    name: llybapp-net

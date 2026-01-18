@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package trpc.llyb.backend.admin;
+
+option go_package = "llyb-backend/proto;proto";
+
+import "trpc/proto/trpc_options.proto";
+
+service AdminService {
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (trpc.alias) = "/admin/login";
+  }
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  bool ok = 1;
+  string message = 2;
+}
