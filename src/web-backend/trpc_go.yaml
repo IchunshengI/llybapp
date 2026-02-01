@@ -8,4 +8,5 @@ server:
     - name: trpc.llyb.backend.admin.AdminService
       protocol: http
       network: tcp
-      addr: 0.0.0.0:8081
+      ip: 0.0.0.0
+      port: 8081
