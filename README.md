@@ -18,5 +18,11 @@ cd compose
 cd web-front
 docker compose up -d
 
+// mysql
+docker volume create llyb-mysql 
+cd mysql
+cp compose/mysql/.env.example compose/mysql/.env
+docker compose up -d
+
 // 后续组件待补充
 ```

@@ -4,7 +4,8 @@ services:
     build: ../../src/web-backend
     working_dir: /app
     ports:
-      - "11022:22"
+      - "10022:22"
+      - "18081:8081"
     volumes:
       - ../../src/web-backend:/app
     environment:
@@ -12,6 +13,12 @@ services:
       SSH_USER: dev
       SSH_PASSWORD: devpass
       ROOT_PASSWORD: rootpass
+      # MySQL runs in the same docker network (compose/mysql/docker-compose.yml).
+      MYSQL_HOST: llyb-mysql
+      MYSQL_PORT: "3306"
+      MYSQL_DATABASE: llyb
+      MYSQL_USER: llyb
+      MYSQL_PASSWORD: llybpass
     command: >
       sh -c "mkdir -p /run/sshd &&
       echo \"root:$$ROOT_PASSWORD\" | chpasswd &&

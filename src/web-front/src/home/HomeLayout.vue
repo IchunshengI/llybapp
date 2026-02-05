@@ -3,6 +3,9 @@ import { computed, ref } from "vue";
 import TestFeature from "./pages/TestFeature.vue";
 
 const emit = defineEmits(["logout"]);
+const props = defineProps({
+  username: { type: String, default: "" },
+});
 
 const activeKey = ref("test");
 const menus = [
@@ -10,6 +13,7 @@ const menus = [
 ];
 
 const activeLabel = computed(() => menus.find((m) => m.key === activeKey.value)?.label ?? "");
+const displayName = computed(() => (props.username || "").trim() || "控制台");
 </script>
 
 <template>
@@ -18,7 +22,7 @@ const activeLabel = computed(() => menus.find((m) => m.key === activeKey.value)?
       <div class="brand">
         <div class="logo">LLYB</div>
         <div class="title">
-          <div class="name">控制台</div>
+          <div class="name" :title="displayName">{{ displayName }}</div>
         </div>
       </div>
 
@@ -77,6 +81,10 @@ const activeLabel = computed(() => menus.find((m) => m.key === activeKey.value)?
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.title {
+  min-width: 0;
+}
+
 .logo {
   width: 40px;
   height: 40px;
@@ -92,6 +100,10 @@ const activeLabel = computed(() => menus.find((m) => m.key === activeKey.value)?
 .name {
   font-weight: 700;
   line-height: 1.1;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sub {

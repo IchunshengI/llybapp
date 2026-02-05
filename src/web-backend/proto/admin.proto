@@ -6,9 +6,14 @@ option go_package = "llyb-backend/proto;proto";
 
 import "trpc/proto/trpc_options.proto";
 
-service AdminService {
+service Admin {
   rpc Login(LoginRequest) returns (LoginResponse) {
     option (trpc.alias) = "/admin/login";
+  }
+
+  // Register a new account with username + password.
+  rpc Register(RegisterRequest) returns (RegisterResponse) {
+    option (trpc.alias) = "/admin/register";
   }
 }
 
@@ -20,4 +25,16 @@ message LoginRequest {
 message LoginResponse {
   bool ok = 1;
   string message = 2;
+}
+
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message RegisterResponse {
+  // 0 means success; non-zero indicates an error.
+  int32 code = 1;
+  int64 account_id = 2;
+  string message = 3;
 }

@@ -5,6 +5,7 @@ PATH := /root/go/bin:$(PATH)
 .PHONY: all gen
 all: gen
 
+# trpc v1.0.9版本
 gen:
 	trpc create \
 		--rpconly \

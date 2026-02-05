@@ -5,7 +5,8 @@ server:
   app: llyb-backend
   server: llyb-backend
   service:
-    - name: trpc.llyb.backend.admin.AdminService
+    # Must match the generated ServiceDesc.ServiceName in proto/admin.trpc.go
+    - name: trpc.llyb.backend.admin.Admin
       protocol: http
       network: tcp
       ip: 0.0.0.0

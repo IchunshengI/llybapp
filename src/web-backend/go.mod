@@ -3,12 +3,14 @@ module llyb-backend
 go 1.22
 
 require (
+	github.com/go-sql-driver/mysql v1.8.1
 	google.golang.org/protobuf v1.33.0
 	trpc.group/trpc-go/trpc-go v1.0.3
 	trpc.group/trpc/trpc-protocol/pb/go/trpc v1.0.0
 )
 
 require (
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/BurntSushi/toml v0.3.1 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
