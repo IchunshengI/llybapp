@@ -9,5 +9,7 @@ server:
     - name: trpc.llyb.backend.admin.Admin
       protocol: http
       network: tcp
+      # Streaming requests can run for a long time; keep server timeout high (ms).
+      timeout: 300000
       ip: 0.0.0.0
       port: 8081

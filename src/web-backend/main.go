@@ -6,6 +6,7 @@ import (
 	"time"
 
 	pb "llyb-backend/proto"
+	"llyb-backend/src/chat"
 	appinit "llyb-backend/src/init"
 
 	"trpc.group/trpc-go/trpc-go"
@@ -37,7 +38,7 @@ func main() {
 	corsFilter := func(ctx context.Context, req any, next filter.ServerHandleFunc) (any, error) {
 		rw := thttp.Response(ctx)
 		if rw != nil {
-			// Dev-friendly CORS; use "*" since we don't rely on cookies.
+			// Dev-friendly CORS; use "*" since we don't rely on cookies right now.
 			rw.Header().Set("Access-Control-Allow-Origin", "*")
 			rw.Header().Set("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
 			rw.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
@@ -52,6 +53,15 @@ func main() {
 		log.Fatalf("trpc service %q not found; check trpc_go.yaml server.service[].name", pb.AdminServer_ServiceDesc.ServiceName)
 	}
 	pb.RegisterAdminService(service, &AdminService{db: db})
+
+	// Coexistence on the same port:
+	// - Existing endpoints (/admin/login, /admin/register) are HTTP-RPC methods generated from proto.
+	// - AI streaming endpoint is a standard HTTP handler registered into the same service.
+	//
+	// This avoids adding another listener/port and keeps routing in one place.
+	thttp.HandleFunc("/ai/chat/stream", chat.StreamHandler)
+	thttp.RegisterNoProtocolService(service)
+
 	if err := s.Serve(); err != nil {
 		log.Fatalf("trpc server exit: %v", err)
 	}

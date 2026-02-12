@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import TestFeature from "./pages/TestFeature.vue";
+import AiChat from "./pages/AiChat.vue";
 
 const emit = defineEmits(["logout"]);
 const props = defineProps({
@@ -10,6 +11,7 @@ const props = defineProps({
 const activeKey = ref("test");
 const menus = [
   { key: "test", label: "基础推理" },
+  { key: "ai", label: "AI 推理" },
 ];
 
 const activeLabel = computed(() => menus.find((m) => m.key === activeKey.value)?.label ?? "");
@@ -51,6 +53,7 @@ const displayName = computed(() => (props.username || "").trim() || "控制台")
 
       <main class="main">
         <TestFeature v-if="activeKey === 'test'" />
+        <AiChat v-else-if="activeKey === 'ai'" />
       </main>
     </section>
   </div>

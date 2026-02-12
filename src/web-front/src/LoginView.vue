@@ -146,7 +146,6 @@ const closeRegister = () => {
       <section class="panel">
         <div class="panel-header">
           <h2>账号登录</h2>
-          <p>后端未接入完成前：登录接口失败也会进入 Home。</p>
         </div>
 
         <form class="form" @submit.prevent="handleLogin">

@@ -1,0 +1,31 @@
+services:
+  llyb-milvus:
+    container_name: llyb-milvus
+    image: milvusdb/milvus:v2.3.4
+    command: ["milvus", "run", "standalone"]
+    restart: unless-stopped
+    environment:
+      ETCD_USE_EMBED: "true"
+      MINIO_USE_EMBED: "true"
+    ports:
+      - "19530:19530"  # Milvus gRPC
+      - "9091:9091"    # Milvus HTTP
+    volumes:
+      - llyb-milvus:/var/lib/milvus
+    healthcheck:
+      test: ["CMD-SHELL", "milvus_admin --host 127.0.0.1 --port 19530 status"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks:
+      - app-net
+
+volumes:
+  llyb-milvus:
+    external: true
+    name: llyb-milvus
+
+networks:
+  app-net:
+    external: true
+    name: llybapp-net

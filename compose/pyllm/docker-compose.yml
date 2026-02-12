@@ -1,0 +1,41 @@
+services:
+  llyb-pyllm:
+    container_name: llyb-pyllm
+    build: ../../src/pyllm
+    working_dir: /llm
+    ports:
+      - "10001:22"   # ssh 访问 pyllm容器
+      # - "18082:8082" # 后续 FastAPI
+    volumes:
+      - ../../src/pyllm:/llm
+    environment:
+      PYTHON_VERSION: "3.10"
+      SSH_USER: dev
+      SSH_PASSWORD: devpass
+      ROOT_PASSWORD: rootpass
+      # Milvus向量数据库(compose/milvus/docker-compose.yml).
+      MILVUS_HOST: llyb-milvus
+      MILVUS_PORT: "19530"
+    command: >
+      sh -c "mkdir -p /run/sshd &&
+      echo \"root:$$ROOT_PASSWORD\" | chpasswd &&
+      sed -i 's/^#\?PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config &&
+      sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config &&
+      if ! id -u \"$$SSH_USER\" >/dev/null 2>&1; then
+        useradd -m -s /bin/bash \"$$SSH_USER\" &&
+        echo \"$$SSH_USER:$$SSH_PASSWORD\" | chpasswd;
+      fi &&
+      cd /llm &&
+      if [ -f requirements.txt ]; then
+        pip install -r requirements.txt;
+      fi &&
+      /usr/sbin/sshd -D"
+    stdin_open: true
+    tty: true
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external: true
+    name: llybapp-net

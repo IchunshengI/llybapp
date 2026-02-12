@@ -8,6 +8,8 @@ services:
       - "18081:8081"
     volumes:
       - ../../src/web-backend:/app
+    env_file:
+      - .env
     environment:
       GOPROXY: https://goproxy.cn,direct
       SSH_USER: dev

@@ -1,0 +1,243 @@
+{
+  "content": "",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "我是",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": " Deep",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "Seek-V",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "3，由",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "深度求索公司打造的",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "智能助手！🤖✨",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": " 我的目标是帮助你解答",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "各类问题，无论是学习",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "、工作，还是生活中的",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "小困扰，我都会",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "尽力提供有用的信息和建议。",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "有什么想问的，尽管",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "来吧！😊",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "",
+  "additional_kwargs": {},
+  "response_metadata": {
+    "finish_reason": "stop",
+    "model_name": "deepseek-v3.1",
+    "model_provider": "openai"
+  },
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "",
+  "additional_kwargs": {},
+  "response_metadata": {},
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": {
+    "input_tokens": 9,
+    "output_tokens": 53,
+    "total_tokens": 62,
+    "input_token_details": {},
+    "output_token_details": {}
+  },
+  "tool_call_chunks": [],
+  "chunk_position": null
+}{
+  "content": "",
+  "additional_kwargs": {},
+  "response_metadata": {},
+  "type": "AIMessageChunk",
+  "name": null,
+  "id": "lc_run--019c3e14-a2c8-7862-9795-f302fc193246",
+  "tool_calls": [],
+  "invalid_tool_calls": [],
+  "usage_metadata": null,
+  "tool_call_chunks": [],
+  "chunk_position": "last"
+}
