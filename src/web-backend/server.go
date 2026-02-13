@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"log"
 
+	"llyb-backend/bazi"
 	"llyb-backend/login"
 	pb "llyb-backend/proto"
 )
@@ -36,4 +37,13 @@ func (s *AdminService) Register(ctx context.Context, req *pb.RegisterRequest) (*
 		AccountId: res.AccountID,
 		Message:   res.Message,
 	}, nil
+}
+
+func (s *AdminService) Reasoning(ctx context.Context, req *pb.ReasoningRequest) (*pb.ReasoningResponse, error) {
+	resp, err := bazi.Reasoning(ctx, req)
+	if err != nil {
+		log.Printf("reasoning failed: err=%v", err)
+		return &pb.ReasoningResponse{Code: 1003, Message: "系统错误"}, nil
+	}
+	return resp, nil
 }

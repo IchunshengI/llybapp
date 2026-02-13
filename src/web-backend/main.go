@@ -6,8 +6,8 @@ import (
 	"time"
 
 	pb "llyb-backend/proto"
-	"llyb-backend/src/chat"
-	appinit "llyb-backend/src/init"
+	"llyb-backend/chat"
+	appinit "llyb-backend/init"
 
 	"trpc.group/trpc-go/trpc-go"
 	"trpc.group/trpc-go/trpc-go/codec"

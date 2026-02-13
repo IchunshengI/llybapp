@@ -15,6 +15,11 @@ service Admin {
   rpc Register(RegisterRequest) returns (RegisterResponse) {
     option (trpc.alias) = "/admin/register";
   }
+
+  // Basic "reasoning" endpoint used by the front-end "基础推理" page.
+  rpc Reasoning(ReasoningRequest) returns (ReasoningResponse) {
+    option (trpc.alias) = "/admin/reasoning";
+  }
 }
 
 message LoginRequest {
@@ -37,4 +42,35 @@ message RegisterResponse {
   int32 code = 1;
   int64 account_id = 2;
   string message = 3;
+}
+
+enum Gender {
+  GENDER_UNSPECIFIED = 0;
+  GENDER_MALE = 1;
+  GENDER_FEMALE = 2;
+}
+
+message ReasoningRequest {
+  // User inputs from the "基础推理" page.
+  Gender gender = 1;
+
+  // Birth date/time from client inputs.
+  // - solar_date: "YYYY-MM-DD" (HTML input[type=date])
+  // - birth_time: "HH:mm" (HTML input[type=time])
+  string solar_date = 2;
+  string birth_time = 3;
+
+  // Location (human-readable).
+  string province = 4;
+  string city = 5;
+}
+
+message ReasoningResponse {
+  // 0 means success; non-zero indicates an error.
+  int32 code = 1;
+  string message = 2;
+
+  // Placeholder for later backend output.
+  // Keep it flexible until the data contract is finalized.
+  string result_json = 3;
 }

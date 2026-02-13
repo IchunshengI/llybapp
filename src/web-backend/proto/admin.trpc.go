@@ -22,6 +22,8 @@ type AdminService interface {
 	Login(ctx context.Context, req *LoginRequest) (*LoginResponse, error)
 	// Register Register a new account with username + password.
 	Register(ctx context.Context, req *RegisterRequest) (*RegisterResponse, error)
+	// Reasoning Basic "reasoning" endpoint used by the front-end "基础推理" page.
+	Reasoning(ctx context.Context, req *ReasoningRequest) (*ReasoningResponse, error)
 }
 
 func AdminService_Login_Handler(svr interface{}, ctx context.Context, f server.FilterFunc) (interface{}, error) {
@@ -60,6 +62,24 @@ func AdminService_Register_Handler(svr interface{}, ctx context.Context, f serve
 	return rsp, nil
 }
 
+func AdminService_Reasoning_Handler(svr interface{}, ctx context.Context, f server.FilterFunc) (interface{}, error) {
+	req := &ReasoningRequest{}
+	filters, err := f(req)
+	if err != nil {
+		return nil, err
+	}
+	handleFunc := func(ctx context.Context, reqbody interface{}) (interface{}, error) {
+		return svr.(AdminService).Reasoning(ctx, reqbody.(*ReasoningRequest))
+	}
+
+	var rsp interface{}
+	rsp, err = filters.Filter(ctx, req, handleFunc)
+	if err != nil {
+		return nil, err
+	}
+	return rsp, nil
+}
+
 // AdminServer_ServiceDesc descriptor for server.RegisterService.
 var AdminServer_ServiceDesc = server.ServiceDesc{
 	ServiceName: "trpc.llyb.backend.admin.Admin",
@@ -74,12 +94,20 @@ var AdminServer_ServiceDesc = server.ServiceDesc{
 			Func: AdminService_Register_Handler,
 		},
 		{
+			Name: "/admin/reasoning",
+			Func: AdminService_Reasoning_Handler,
+		},
+		{
 			Name: "/trpc.llyb.backend.admin.Admin/Login",
 			Func: AdminService_Login_Handler,
 		},
 		{
 			Name: "/trpc.llyb.backend.admin.Admin/Register",
 			Func: AdminService_Register_Handler,
+		},
+		{
+			Name: "/trpc.llyb.backend.admin.Admin/Reasoning",
+			Func: AdminService_Reasoning_Handler,
 		},
 	},
 }
@@ -104,6 +132,11 @@ func (s *UnimplementedAdmin) Register(ctx context.Context, req *RegisterRequest)
 	return nil, errors.New("rpc Register of service Admin is not implemented")
 }
 
+// Reasoning Basic "reasoning" endpoint used by the front-end "基础推理" page.
+func (s *UnimplementedAdmin) Reasoning(ctx context.Context, req *ReasoningRequest) (*ReasoningResponse, error) {
+	return nil, errors.New("rpc Reasoning of service Admin is not implemented")
+}
+
 // END --------------------------------- Default Unimplemented Server Service --------------------------------- END
 
 // END ======================================= Server Service Definition ======================================= END
@@ -115,6 +148,8 @@ type AdminClientProxy interface {
 	Login(ctx context.Context, req *LoginRequest, opts ...client.Option) (rsp *LoginResponse, err error)
 	// Register Register a new account with username + password.
 	Register(ctx context.Context, req *RegisterRequest, opts ...client.Option) (rsp *RegisterResponse, err error)
+	// Reasoning Basic "reasoning" endpoint used by the front-end "基础推理" page.
+	Reasoning(ctx context.Context, req *ReasoningRequest, opts ...client.Option) (rsp *ReasoningResponse, err error)
 }
 
 type AdminClientProxyImpl struct {
@@ -160,6 +195,26 @@ func (c *AdminClientProxyImpl) Register(ctx context.Context, req *RegisterReques
 	callopts = append(callopts, c.opts...)
 	callopts = append(callopts, opts...)
 	rsp := &RegisterResponse{}
+	if err := c.client.Invoke(ctx, req, rsp, callopts...); err != nil {
+		return nil, err
+	}
+	return rsp, nil
+}
+
+func (c *AdminClientProxyImpl) Reasoning(ctx context.Context, req *ReasoningRequest, opts ...client.Option) (*ReasoningResponse, error) {
+	ctx, msg := codec.WithCloneMessage(ctx)
+	defer codec.PutBackMessage(msg)
+	msg.WithClientRPCName("/admin/reasoning")
+	msg.WithCalleeServiceName(AdminServer_ServiceDesc.ServiceName)
+	msg.WithCalleeApp("")
+	msg.WithCalleeServer("")
+	msg.WithCalleeService("Admin")
+	msg.WithCalleeMethod("Reasoning")
+	msg.WithSerializationType(codec.SerializationTypePB)
+	callopts := make([]client.Option, 0, len(c.opts)+len(opts))
+	callopts = append(callopts, c.opts...)
+	callopts = append(callopts, opts...)
+	rsp := &ReasoningResponse{}
 	if err := c.client.Invoke(ctx, req, rsp, callopts...); err != nil {
 		return nil, err
 	}

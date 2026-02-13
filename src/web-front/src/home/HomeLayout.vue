@@ -52,8 +52,10 @@ const displayName = computed(() => (props.username || "").trim() || "控制台")
       </header>
 
       <main class="main">
-        <TestFeature v-if="activeKey === 'test'" />
-        <AiChat v-else-if="activeKey === 'ai'" />
+        <!-- Keep tab pages alive so switching doesn't reset previous inputs/results -->
+        <KeepAlive>
+          <component :is="activeKey === 'test' ? TestFeature : AiChat" />
+        </KeepAlive>
       </main>
     </section>
   </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from "vue";
+import { nextTick, onActivated, onBeforeUnmount, onDeactivated, onMounted, reactive, ref } from "vue";
 import MarkdownIt from "markdown-it";
 import DOMPurify from "dompurify";
 
@@ -273,20 +273,53 @@ const onKeydown = (e) => {
   }
 };
 
-onMounted(() => {
+let attachedListEl = null;
+let keydownAttached = false;
+let scrollAttached = false;
+const attachListeners = () => {
   const el = listEl.value;
-  if (!el) return;
-  el.addEventListener("scroll", updateSticky, { passive: true });
-  updateSticky();
-  window.addEventListener("keydown", onGlobalKeydown, true);
+  if (!keydownAttached) {
+    window.addEventListener("keydown", onGlobalKeydown, true);
+    keydownAttached = true;
+  }
+
+  // listEl can be null early (timing/KeepAlive); keep trying on activate.
+  if (el && (!scrollAttached || attachedListEl !== el)) {
+    if (attachedListEl) attachedListEl.removeEventListener("scroll", updateSticky);
+    el.addEventListener("scroll", updateSticky, { passive: true });
+    attachedListEl = el;
+    scrollAttached = true;
+    updateSticky();
+  }
+};
+
+const detachListeners = () => {
+  if (scrollAttached && attachedListEl) attachedListEl.removeEventListener("scroll", updateSticky);
+  attachedListEl = null;
+  scrollAttached = false;
+  if (keydownAttached) window.removeEventListener("keydown", onGlobalKeydown, true);
+  keydownAttached = false;
+};
+
+onMounted(() => {
+  attachListeners();
   focusInput();
 });
 
+// When wrapped in <KeepAlive>, the component is cached (not unmounted) when users switch tabs.
+// We must detach global listeners while inactive, otherwise it will hijack typing on other pages.
+onActivated(async () => {
+  await nextTick();
+  attachListeners();
+  focusInput();
+});
+
+onDeactivated(() => {
+  detachListeners();
+});
+
 onBeforeUnmount(() => {
-  const el = listEl.value;
-  if (!el) return;
-  el.removeEventListener("scroll", updateSticky);
-  window.removeEventListener("keydown", onGlobalKeydown, true);
+  detachListeners();
 });
 </script>
 

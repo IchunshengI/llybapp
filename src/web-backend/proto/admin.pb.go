@@ -23,6 +23,55 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type Gender int32
+
+const (
+	Gender_GENDER_UNSPECIFIED Gender = 0
+	Gender_GENDER_MALE        Gender = 1
+	Gender_GENDER_FEMALE      Gender = 2
+)
+
+// Enum value maps for Gender.
+var (
+	Gender_name = map[int32]string{
+		0: "GENDER_UNSPECIFIED",
+		1: "GENDER_MALE",
+		2: "GENDER_FEMALE",
+	}
+	Gender_value = map[string]int32{
+		"GENDER_UNSPECIFIED": 0,
+		"GENDER_MALE":        1,
+		"GENDER_FEMALE":      2,
+	}
+)
+
+func (x Gender) Enum() *Gender {
+	p := new(Gender)
+	*p = x
+	return p
+}
+
+func (x Gender) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Gender) Descriptor() protoreflect.EnumDescriptor {
+	return file_admin_proto_enumTypes[0].Descriptor()
+}
+
+func (Gender) Type() protoreflect.EnumType {
+	return &file_admin_proto_enumTypes[0]
+}
+
+func (x Gender) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Gender.Descriptor instead.
+func (Gender) EnumDescriptor() ([]byte, []int) {
+	return file_admin_proto_rawDescGZIP(), []int{0}
+}
+
 type LoginRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Username      string                 `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
@@ -240,6 +289,150 @@ func (x *RegisterResponse) GetMessage() string {
 	return ""
 }
 
+type ReasoningRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// User inputs from the "基础推理" page.
+	Gender Gender `protobuf:"varint,1,opt,name=gender,proto3,enum=trpc.llyb.backend.admin.Gender" json:"gender,omitempty"`
+	// Birth date/time from client inputs.
+	// - solar_date: "YYYY-MM-DD" (HTML input[type=date])
+	// - birth_time: "HH:mm" (HTML input[type=time])
+	SolarDate string `protobuf:"bytes,2,opt,name=solar_date,json=solarDate,proto3" json:"solar_date,omitempty"`
+	BirthTime string `protobuf:"bytes,3,opt,name=birth_time,json=birthTime,proto3" json:"birth_time,omitempty"`
+	// Location (human-readable).
+	Province      string `protobuf:"bytes,4,opt,name=province,proto3" json:"province,omitempty"`
+	City          string `protobuf:"bytes,5,opt,name=city,proto3" json:"city,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReasoningRequest) Reset() {
+	*x = ReasoningRequest{}
+	mi := &file_admin_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReasoningRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReasoningRequest) ProtoMessage() {}
+
+func (x *ReasoningRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_admin_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReasoningRequest.ProtoReflect.Descriptor instead.
+func (*ReasoningRequest) Descriptor() ([]byte, []int) {
+	return file_admin_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ReasoningRequest) GetGender() Gender {
+	if x != nil {
+		return x.Gender
+	}
+	return Gender_GENDER_UNSPECIFIED
+}
+
+func (x *ReasoningRequest) GetSolarDate() string {
+	if x != nil {
+		return x.SolarDate
+	}
+	return ""
+}
+
+func (x *ReasoningRequest) GetBirthTime() string {
+	if x != nil {
+		return x.BirthTime
+	}
+	return ""
+}
+
+func (x *ReasoningRequest) GetProvince() string {
+	if x != nil {
+		return x.Province
+	}
+	return ""
+}
+
+func (x *ReasoningRequest) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
+}
+
+type ReasoningResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// 0 means success; non-zero indicates an error.
+	Code    int32  `protobuf:"varint,1,opt,name=code,proto3" json:"code,omitempty"`
+	Message string `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	// Placeholder for later backend output.
+	// Keep it flexible until the data contract is finalized.
+	ResultJson    string `protobuf:"bytes,3,opt,name=result_json,json=resultJson,proto3" json:"result_json,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ReasoningResponse) Reset() {
+	*x = ReasoningResponse{}
+	mi := &file_admin_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ReasoningResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReasoningResponse) ProtoMessage() {}
+
+func (x *ReasoningResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_admin_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReasoningResponse.ProtoReflect.Descriptor instead.
+func (*ReasoningResponse) Descriptor() ([]byte, []int) {
+	return file_admin_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ReasoningResponse) GetCode() int32 {
+	if x != nil {
+		return x.Code
+	}
+	return 0
+}
+
+func (x *ReasoningResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+func (x *ReasoningResponse) GetResultJson() string {
+	if x != nil {
+		return x.ResultJson
+	}
+	return ""
+}
+
 var File_admin_proto protoreflect.FileDescriptor
 
 const file_admin_proto_rawDesc = "" +
@@ -258,10 +451,28 @@ const file_admin_proto_rawDesc = "" +
 	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x1d\n" +
 	"\n" +
 	"account_id\x18\x02 \x01(\x03R\taccountId\x12\x18\n" +
-	"\amessage\x18\x03 \x01(\tR\amessage2\xe7\x01\n" +
+	"\amessage\x18\x03 \x01(\tR\amessage\"\xb9\x01\n" +
+	"\x10ReasoningRequest\x127\n" +
+	"\x06gender\x18\x01 \x01(\x0e2\x1f.trpc.llyb.backend.admin.GenderR\x06gender\x12\x1d\n" +
+	"\n" +
+	"solar_date\x18\x02 \x01(\tR\tsolarDate\x12\x1d\n" +
+	"\n" +
+	"birth_time\x18\x03 \x01(\tR\tbirthTime\x12\x1a\n" +
+	"\bprovince\x18\x04 \x01(\tR\bprovince\x12\x12\n" +
+	"\x04city\x18\x05 \x01(\tR\x04city\"b\n" +
+	"\x11ReasoningResponse\x12\x12\n" +
+	"\x04code\x18\x01 \x01(\x05R\x04code\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\x12\x1f\n" +
+	"\vresult_json\x18\x03 \x01(\tR\n" +
+	"resultJson*D\n" +
+	"\x06Gender\x12\x16\n" +
+	"\x12GENDER_UNSPECIFIED\x10\x00\x12\x0f\n" +
+	"\vGENDER_MALE\x10\x01\x12\x11\n" +
+	"\rGENDER_FEMALE\x10\x022\xe1\x02\n" +
 	"\x05Admin\x12h\n" +
 	"\x05Login\x12%.trpc.llyb.backend.admin.LoginRequest\x1a&.trpc.llyb.backend.admin.LoginResponse\"\x10\x8a\xb5\x18\f/admin/login\x12t\n" +
-	"\bRegister\x12(.trpc.llyb.backend.admin.RegisterRequest\x1a).trpc.llyb.backend.admin.RegisterResponse\"\x13\x8a\xb5\x18\x0f/admin/registerB\x1aZ\x18llyb-backend/proto;protob\x06proto3"
+	"\bRegister\x12(.trpc.llyb.backend.admin.RegisterRequest\x1a).trpc.llyb.backend.admin.RegisterResponse\"\x13\x8a\xb5\x18\x0f/admin/register\x12x\n" +
+	"\tReasoning\x12).trpc.llyb.backend.admin.ReasoningRequest\x1a*.trpc.llyb.backend.admin.ReasoningResponse\"\x14\x8a\xb5\x18\x10/admin/reasoningB\x1aZ\x18llyb-backend/proto;protob\x06proto3"
 
 var (
 	file_admin_proto_rawDescOnce sync.Once
@@ -275,23 +486,30 @@ func file_admin_proto_rawDescGZIP() []byte {
 	return file_admin_proto_rawDescData
 }
 
-var file_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_admin_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_admin_proto_goTypes = []any{
-	(*LoginRequest)(nil),     // 0: trpc.llyb.backend.admin.LoginRequest
-	(*LoginResponse)(nil),    // 1: trpc.llyb.backend.admin.LoginResponse
-	(*RegisterRequest)(nil),  // 2: trpc.llyb.backend.admin.RegisterRequest
-	(*RegisterResponse)(nil), // 3: trpc.llyb.backend.admin.RegisterResponse
+	(Gender)(0),               // 0: trpc.llyb.backend.admin.Gender
+	(*LoginRequest)(nil),      // 1: trpc.llyb.backend.admin.LoginRequest
+	(*LoginResponse)(nil),     // 2: trpc.llyb.backend.admin.LoginResponse
+	(*RegisterRequest)(nil),   // 3: trpc.llyb.backend.admin.RegisterRequest
+	(*RegisterResponse)(nil),  // 4: trpc.llyb.backend.admin.RegisterResponse
+	(*ReasoningRequest)(nil),  // 5: trpc.llyb.backend.admin.ReasoningRequest
+	(*ReasoningResponse)(nil), // 6: trpc.llyb.backend.admin.ReasoningResponse
 }
 var file_admin_proto_depIdxs = []int32{
-	0, // 0: trpc.llyb.backend.admin.Admin.Login:input_type -> trpc.llyb.backend.admin.LoginRequest
-	2, // 1: trpc.llyb.backend.admin.Admin.Register:input_type -> trpc.llyb.backend.admin.RegisterRequest
-	1, // 2: trpc.llyb.backend.admin.Admin.Login:output_type -> trpc.llyb.backend.admin.LoginResponse
-	3, // 3: trpc.llyb.backend.admin.Admin.Register:output_type -> trpc.llyb.backend.admin.RegisterResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: trpc.llyb.backend.admin.ReasoningRequest.gender:type_name -> trpc.llyb.backend.admin.Gender
+	1, // 1: trpc.llyb.backend.admin.Admin.Login:input_type -> trpc.llyb.backend.admin.LoginRequest
+	3, // 2: trpc.llyb.backend.admin.Admin.Register:input_type -> trpc.llyb.backend.admin.RegisterRequest
+	5, // 3: trpc.llyb.backend.admin.Admin.Reasoning:input_type -> trpc.llyb.backend.admin.ReasoningRequest
+	2, // 4: trpc.llyb.backend.admin.Admin.Login:output_type -> trpc.llyb.backend.admin.LoginResponse
+	4, // 5: trpc.llyb.backend.admin.Admin.Register:output_type -> trpc.llyb.backend.admin.RegisterResponse
+	6, // 6: trpc.llyb.backend.admin.Admin.Reasoning:output_type -> trpc.llyb.backend.admin.ReasoningResponse
+	4, // [4:7] is the sub-list for method output_type
+	1, // [1:4] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_admin_proto_init() }
@@ -304,13 +522,14 @@ func file_admin_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_admin_proto_rawDesc), len(file_admin_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   4,
+			NumEnums:      1,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_admin_proto_goTypes,
 		DependencyIndexes: file_admin_proto_depIdxs,
+		EnumInfos:         file_admin_proto_enumTypes,
 		MessageInfos:      file_admin_proto_msgTypes,
 	}.Build()
 	File_admin_proto = out.File
